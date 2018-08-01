@@ -27,14 +27,3 @@ uint16_t  modbus_crc(uint8_t *modbus_buff,uint8_t size)
     return crc_register;
 }
 
-//eg
-#include "stdio.h"
-
-void main(void)
-{
-   unsigned char test_data[10] = {11,22,33,44,55,66,77,88,99,0};
-   unsigned short crc = modbus_crc(test_data,10);
-   //printf("%x \t %x",(char)((crc&0xff00)>>2),(char)(crc&0x00ff));
-   printf("%02x \n",(unsigned char)((crc&0xff00)>>8));
-   printf("%02X \n",(unsigned char)(crc&0x00ff));
-}

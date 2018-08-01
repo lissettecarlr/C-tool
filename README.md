@@ -1,19 +1,37 @@
 # software_tool
 
-## random.c
-### unsigned int random(unsigned int seed,unsigned int max,unsigned min);
+## 1、介绍
 
-## byte_handle.c
-### uint8_t Util_hiUint16(uint16_t a);
-### uint8_t Util_loUint16(uint16_t a);
-### uint8_t *Util_bufferUint16(uint8_t *pBuf, uint16_t val);
-### uint16_t Util_buildUint16(uint8_t loByte, uint8_t hiByte);
-### uint16_t Util_parseUint16(uint8_t *pArray);
-### uint8_t Util_breakUint32(uint32_t var, int byteNum);
-### uint8_t *Util_bufferUint32(uint8_t *pBuf, uint32_t val);
-### uint32_t Util_buildUint32(uint8_t byte0, uint8_t byte1, uint8_t byte2,uint8_t byte3);
-### uint32_t Util_parseUint32(uint8_t *pArray);
+这是一个集成多种小工具的软件包，例如crc校验，产生随机数，字节变换等C语言工具，方便底层嵌入式代码的编写。
+
+### 1.1 目录结构
 
 
-## crc.c
-### uint16_t  modbus_crc(uint8_t *modbus_buff,uint8_t size);
+| 名称 | 说明 |
+| ---- | ---- |
+| docs  | 文档目录 |
+| examples | 例子目录，并有相应的一些说明 |
+| include  | 头文件目录 |
+| src  | 源代码目录 |
+
+
+## 2、如何打开 software_tool
+
+使用 software_tool package 需要在 RT-Thread 的包管理器中选择它.
+
+然后让 RT-Thread 的包管理器自动更新，或者使用 `pkgs --update` 命令更新包到 BSP 中。
+
+## 3、使用 software_tool
+
+
+
+* 完整的 API 手册可以访问这个[链接](docs/api.md)
+* 更多文档位于 [`/docs`](/docs) 下，使用前 **务必查看**
+
+## 4、注意事项
+
+> 说明：列出在使用这个 package 过程中需要注意的事项；列出常见的问题，以及解决办法。
+
+## 5、联系方式 & 感谢
+
+
