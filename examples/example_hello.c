@@ -23,3 +23,11 @@
 //    printf("%02x \n",(unsigned char)((crc&0xff00)>>8));
 //    printf("%02X \n",(unsigned char)(crc&0x00ff));
 // }
+
+
+#include "../include/software_tool_api.h"
+
+int main()
+{
+    return 0 ;
+}
