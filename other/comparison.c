@@ -14,9 +14,9 @@ int comparison_bytes(const uint8_t *scr,const uint8_t *dest,uint16_t n)
    return 1;
 }
 
-void main()
-{
-   uint8_t data1[3] = {1,1,3};
-   uint8_t data2[3] = {1,2,3};
-   printf("%d\n",comparison_bytes(data1,data2,3));
-}
+//void main()
+//{
+//   uint8_t data1[3] = {1,1,3};
+//   uint8_t data2[3] = {1,2,3};
+//   printf("%d\n",comparison_bytes(data1,data2,3));
+//}
