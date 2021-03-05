@@ -25,14 +25,10 @@ void main()
 
     printf("len=%d\n",list_len(&head));
 
-    list_t *temp=head.next;
+    list_t *temp=0;
     for(temp=head.next;temp!=&head;temp=temp->next)
     {
         object = LIST_ENTER(temp,test_t,list);
         printf("node:data=%d\n",object->data);
     }
-  
-
 }
-
-//((type *)((char *)(ptr) - (unsigned long)(&((type *)0)->member)))

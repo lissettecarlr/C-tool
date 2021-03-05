@@ -1,7 +1,8 @@
 #include "stdio.h"
 #include "medianFilter.h"
+#include "limitFilter.h"
 
-void qprint(unsigned char* pData, int count)
+void qprint(int* pData, int count)
 {
     printf("\n");
 	for (int i = 0; i< count; i++) 
@@ -14,9 +15,25 @@ void qprint(unsigned char* pData, int count)
 void main()
 {
 
-	unsigned char a[10] = {7,4,9,3,2,6,1,5,8,11};
-    unsigned char b[10];
-	medianFilterDataInput(a,10);
-	unsigned short num = medianFilterDataOut(b,10);
-	qprint(b,num);
+	// int a[10] = {7,4,9,3,2,6,1,5,8,11};
+    // unsigned short b[10]={1,2,3,4,2,6,7,8,9,10};
+   
+	// medianFilterDataInput(a,10);
+	// unsigned short num = medianFilterDataOut(b,10);
+
+	//限幅滤波
+ 	// int size=0;
+	// size = limitFilterMultiple(a,10,a,10);
+	// printf("size=%d\n",size);
+	// qprint(a,size);
+
+	// unsigned short x=0;
+	// medianFilterSingle(b,10,&x);
+	// printf("\n%d\n",x);
+
+
+	int b=10;
+	b-=(2+b*0.2);//b=5
+	printf("b=%d\n",b);
+	
 }

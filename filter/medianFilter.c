@@ -2,122 +2,72 @@
  * @file MedianFilter.c
  * @brief 中位值滤波
  * @author fzj
- * @version 0.1
- * @data 2021-1-21
+ * @version 0.2
+ * @data 2021-03-21
+ * @data 2021-03-21 重写
  */
 
 #include "medianFilter.h"
+#include "stdlib.h"
+#include "string.h"
+#include "stdio.h"
 
-
-typedef struct sMedianBuffer{
-	unsigned short dataNumber;
-	unsigned char data[MEDIAN_FILTER_BUFFER_SIZE];
-}MedianBuffer_t;
-
-static MedianBuffer_t MedianBuffer={0,0};
-
-
+#define HASH_SIZE 20
+static unsigned char hash[HASH_SIZE] = {0};
 /*!
- * \brief 从小到大排序
+ * \brief 升序 排序
+ * 冒泡排序耗时较长，快速排序占用内存较多且使用的是栈，这里选用了哈希计数排序，该排序仅支持已知最大值且不为负数
+ * \param [IN] data 输入数据地址
+ * \param [IN] size 输入数据长度
  */
-void AscendingSort(unsigned char a[], unsigned short size)
+void medianFilterSort(unsigned short *data,unsigned short size)
 {
-	unsigned char x = a[0];
-	unsigned short i = 0;
-	unsigned short j = size - 1;
+	int i=0;
+	int j=0;
+    memset(hash, 0, (HASH_SIZE) * sizeof(hash[0]));
+    //填充hash表
+    for (i = 0; i < size; i++) hash[data[i]]++;
+    //按照顺序读出
+    for (i = 0,j=0; i < (HASH_SIZE); i++) 
+    {
+        if (hash[i] > 0)
+        {
+            while (hash[i] != 0) 
+            {
+                data[j++] = i;
+                hash[i]--;
+            }
+        }
+    }	
+}
 
-	if (size>1)
+
+char medianFilterSingle(unsigned short *inputData,unsigned short inputSize,unsigned short *outputData)
+{
+	unsigned short outputDataPos=0;
+	unsigned short dataNumber=inputSize;
+	unsigned short firstFilterSum=0;
+	medianFilterSort(inputData,inputSize);
+	
+	printf("dataNumber1 %d \n",dataNumber);
+	outputDataPos = MEDIAN_FILTER_TRASH_PROP_LOW *dataNumber;
+ 	printf("outputDataPos %d \n",outputDataPos);
+
+	unsigned short a = (outputDataPos+dataNumber*MEDIAN_FILTER_TRASH_PROP_HIGH);
+	printf("dataNumber=%d,a=%d \n",dataNumber,a);
+
+	dataNumber=dataNumber-(outputDataPos+dataNumber*MEDIAN_FILTER_TRASH_PROP_HIGH);
+	printf("dataNumber3 %d \n",dataNumber);
+
+	for(int y=0;y<dataNumber;y++)
 	{
-		while (i<j)
-		{
-			while (i<j)   
-			{
-				if (a[j]<x)  
-				{
-					a[i] = a[j]; 
-					i++;  
-					break;       
-				}
-				j--;
-			}
-			while (i<j)
-			{
-				if (a[i]>x)
-				{
-					a[j] = a[i];
-					j--;
-					break;
-				}
-				i++;
-			}
-		}
-		a[i] = x;
-
-		AscendingSort(a, i);
-		AscendingSort(a + i + 1, size - i - 1);
+	    firstFilterSum+=inputData[y+outputDataPos];
+		printf("[%d] ",inputData[y+outputDataPos]);
 	}
+	*outputData = firstFilterSum/dataNumber;
+	return 1;
+	
 }
 
-/*!
- * \brief 滤波排序
- */
-void medianFilterSort(void)
-{
-		AscendingSort(MedianBuffer.data,MedianBuffer.dataNumber);
-}
-
-
-/*!
- * \brief 中位值滤波输入，在输出前可多次传入
- * \param [IN] data 需要滤波的数据
- * \param [IN] size 需要滤波的数据长度
- */
-void medianFilterDataInput(unsigned char *data,unsigned short size)
-{
-		
-		if(MedianBuffer.dataNumber >= MEDIAN_FILTER_BUFFER_SIZE)
-		{
-				return;
-		}
-		if((MedianBuffer.dataNumber +size) > MEDIAN_FILTER_BUFFER_SIZE)
-		{
-				size = MEDIAN_FILTER_BUFFER_SIZE - MedianBuffer.dataNumber;//剩余
-		}
-		for(int i=0;i<size;i++)
-		{
-				MedianBuffer.data[MedianBuffer.dataNumber++] = data[i];
-		}
-}
-
-
-
-
-/*!
-* \brief 中位值滤波输出，输出的缓存区是滤波完成的数据
-* \param [IN] data 滤波完成数据
-* \param [IN] size 传入buffer的尺寸
-* \retval 滤波输出数据个数
-*/
-unsigned short medianFilterDataOut(unsigned char *data,unsigned short size)
-{
-		//对buffer进行排序
-	  medianFilterSort();
-		//去掉头尾
-	  unsigned short filterNumber = MEDIAN_FILTER_TRASH_PROP * MedianBuffer.dataNumber;
-	  unsigned short retNumber = MedianBuffer.dataNumber -(filterNumber *2);
-	  if(size < retNumber)
-		{
-				retNumber = size;
-		}
-	  for(int i=0;i<retNumber;i++)
-	  {
-				data[i] = MedianBuffer.data[filterNumber + i];
-		}
-		//清空buffer返回滤波后数据
-		MedianBuffer.dataNumber = 0;
-		return retNumber;
-		
-}
-
-
-
+char medianFilterMultiple(unsigned short *inputData,unsigned short inputSize,unsigned short *outputData,unsigned short *ouputSize)
+{}
