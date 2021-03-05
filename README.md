@@ -43,11 +43,15 @@
 | BubbleSort  | 冒泡排序|
 |CountingSort|哈希计数排序|
 |quick_sort| 快速排序|
-#### 1.1.8 string_change
+#### 1.1.9 string_change
 | 名称 | 说明 |
 | ---- | ---- |
 | variate_change.c  | 字节流转字符串、插入字符串、整形转字符、字符转16进制|
-
+#### 1.1.10 buffer
+| 名称 | 说明 |
+| ---- | ---- |
+| queue  | 循环队列|
+|NormalBuffer|普通缓冲区|
 
 
 
