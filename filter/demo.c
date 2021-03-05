@@ -16,7 +16,7 @@ void main()
 {
 
 	// int a[10] = {7,4,9,3,2,6,1,5,8,11};
-    // unsigned short b[10]={1,2,3,4,2,6,7,8,9,10};
+    unsigned short b[10]={1,2,3,4,2,6,7,8,9,10};
    
 	// medianFilterDataInput(a,10);
 	// unsigned short num = medianFilterDataOut(b,10);
@@ -27,13 +27,8 @@ void main()
 	// printf("size=%d\n",size);
 	// qprint(a,size);
 
-	// unsigned short x=0;
-	// medianFilterSingle(b,10,&x);
-	// printf("\n%d\n",x);
-
-
-	int b=10;
-	b-=(2+b*0.2);//b=5
-	printf("b=%d\n",b);
+	unsigned short x=0;
+	medianFilterSingle(b,10,&x);
+	printf("\n%d\n",x);
 	
 }

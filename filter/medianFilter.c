@@ -48,17 +48,9 @@ char medianFilterSingle(unsigned short *inputData,unsigned short inputSize,unsig
 	unsigned short dataNumber=inputSize;
 	unsigned short firstFilterSum=0;
 	medianFilterSort(inputData,inputSize);
-	
-	printf("dataNumber1 %d \n",dataNumber);
 	outputDataPos = MEDIAN_FILTER_TRASH_PROP_LOW *dataNumber;
- 	printf("outputDataPos %d \n",outputDataPos);
-
-	unsigned short a = (outputDataPos+dataNumber*MEDIAN_FILTER_TRASH_PROP_HIGH);
-	printf("dataNumber=%d,a=%d \n",dataNumber,a);
-
-	dataNumber=dataNumber-(outputDataPos+dataNumber*MEDIAN_FILTER_TRASH_PROP_HIGH);
-	printf("dataNumber3 %d \n",dataNumber);
-
+	//这里不强转以下有些编译器会弄出不同结果- -|
+	dataNumber=dataNumber-(int)(outputDataPos+dataNumber*MEDIAN_FILTER_TRASH_PROP_HIGH);
 	for(int y=0;y<dataNumber;y++)
 	{
 	    firstFilterSum+=inputData[y+outputDataPos];
