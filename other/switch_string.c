@@ -26,15 +26,13 @@ typedef enum eCmdTyep{
 ///罗列出需要匹配的字符串，顺序需要和上面的枚举相同
 const char * const type[] ={"GetLog","SetWiFi","GetOfflineData","DownloadFirmware","UpdateFirmware"};
 
-///类型数量
-#define TYPE_NUMBER 5
 
 /**
  * @brief 比对字符串，返回下标
 */
 int getPos(const char * s)
 {
-    for(int i=0; i<TYPE_NUMBER; i++)
+    for(int i=0; i<UpdateFirmware+1; i++)
     if( strcmp(s,type[i]) ==0 )
         return i;
     return -1;
@@ -42,7 +40,7 @@ int getPos(const char * s)
 
 void main()
 {
-    char *test = "DownloadFirmware";
+    char *test = "UpdateFirmware";
     switch (getPos(test))
     {
     case GetLog:
