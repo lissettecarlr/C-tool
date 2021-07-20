@@ -2,7 +2,7 @@
 #include <ctype.h>  //toupper  isxdigit
 
 //byte流转化为字符串
-void ByteToHexStr(const unsigned char* source, char* dest, int sourceLen)
+void ByteToHexStr(const unsigned char *source, char* dest, int sourceLen)
 {
     short i;
     unsigned char highByte, lowByte;
@@ -40,7 +40,7 @@ void ByteToHexStr(const unsigned char* source, char* dest, int sourceLen)
 //插入字符串
 char *strcat_m(char *dest,const char *str)
 {
-	char *cp=dest;
+	char *cp = dest;
 	while(*cp!='\0') ++cp;
  
 	while((*cp++=*str++)!='\0')
@@ -55,6 +55,20 @@ char *strcat_m(char *dest,const char *str)
 //    strcat_m(dest,"llala");
 //    printf("%s",dest);
 //}
+void insert(char s[], char t, int i)
+{
+    char string[100];
+    if (!strlen(s))
+        string[0] = t;
+    else
+    {
+        strncpy(string, s, i);
+        string[i] = t;
+        string[i + 1] = '\0';
+        strcat(string, (s + i));
+        strcpy(s, string);
+    }
+}
 
 //转换为字符串
 char *itoa(int num, char *str, int radix)
@@ -115,3 +129,5 @@ void StrToHex(char *pbDest, char *pbSrc, int nLen)
         pbDest[i] = s1*16 + s2;
     }
 }
+
+
