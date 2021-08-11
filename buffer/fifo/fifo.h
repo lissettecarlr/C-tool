@@ -16,6 +16,8 @@
  */
 #define isFifoFull( fifo )                      ((((fifo)->posW+1) % (fifo)->size) == (fifo)->posR)
 
+
+
 /*!
  * \brief 队列数据类型
  */
@@ -23,7 +25,8 @@ typedef enum
 {
     DATA_TYPE_U8=1,
     DATA_TYPE_U16=2,
-}dataType_t;
+    DATA_TYPE_POINTER=4,
+}DataType_t;
 
 /*!
  * \brief 队列结构体
@@ -34,7 +37,7 @@ typedef struct sFifo
     unsigned int size;//数据存储区大小
     unsigned int posR;//读地址
     unsigned int posW;//写地址
-    dataType_t type;//存储区数据类型
+    DataType_t type;//存储区数据类型
 }Fifo_t;
 
 /*!
@@ -59,7 +62,7 @@ int fifoPop(Fifo_t *fifo,void *data);
  * \param [IN] size 存储区域大小
  * \param [IN] type 存储数据类型
  */
-void fifoInit(Fifo_t *fifo,void *data,unsigned int size,dataType_t type);
+void fifoInit(Fifo_t *fifo,void *data,unsigned int size,DataType_t type);
 
 /*!
  * \brief 清空队列

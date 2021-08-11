@@ -1,5 +1,4 @@
 #include "fifo.h"
-
 /*!
  * \brief 存入数据
  * \param [IN]fifo 执行的队列
@@ -24,6 +23,10 @@ int fifoPush(Fifo_t *fifo,void *data)
     else if(fifo->type == DATA_TYPE_U16)
     {   
        ((unsigned short *)(fifo->data))[fifo->posW] = *(unsigned short*)(data);
+    }
+    else if(fifo->type == DATA_TYPE_POINTER) 
+    {
+        ((unsigned int *)(fifo->data))[fifo->posW] = (unsigned int)data; //直接存入指针
     }
     else
     {
@@ -55,9 +58,17 @@ int fifoPop(Fifo_t *fifo,void *data)
     {
         *(unsigned short*)data = ((unsigned short*)(fifo->data))[fifo->posR];
     }
+    else if(fifo->type == DATA_TYPE_POINTER)
+    {
+        //需要传入一个指向指针的指针
+        *((unsigned int*)data)=((unsigned int*)(fifo->data))[fifo->posR];
+    }
     else
-    {}
+    {
+        return -1;
+    }
     fifo->posR = (fifo->posR+1) % fifo->size;
+    return 0;
 }
 
 /*!
@@ -67,7 +78,7 @@ int fifoPop(Fifo_t *fifo,void *data)
  * \param [IN] size 存储区域大小
  * \param [IN] type 存储数据类型
  */
-void fifoInit(Fifo_t *fifo,void *data,unsigned int size,dataType_t type)
+void fifoInit(Fifo_t *fifo,void *data,unsigned int size,DataType_t type)
 {
     fifo->data = data;
     fifo->size = size;

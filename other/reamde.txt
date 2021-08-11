@@ -2,3 +2,4 @@ comparison.c  对不两个数组中第N个数是否相等
 equation.c 计算周期唤醒的剩余间隔时间
 random.c 随机数生成
 switch_string.c  字符串在switch的使用方式
+endian.c判断大小端
